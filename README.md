@@ -4,9 +4,9 @@ Business card to digital contact with a picture.
 
 ## MVP
 
-- Tesseract for OCR
-- Django for database
-  - Need "contact" model
+- [ ] Tesseract for OCR
+- [x] Django for database
+  - [x] Need "contact" model
     - "name" required, text
     - "phone" optional, text, verified format
     - "email" optional, text, verified format
@@ -16,10 +16,10 @@ Business card to digital contact with a picture.
     - "other"
       - label, text
       - value, varies? files?
-- React for frontend
-  - Button to "take photo"
-    - Camera permissions from the browser
-  - "Processing" to display during OCR
+- [x] React for frontend
+  - [x] Button to "take photo"
+    - [x] Camera permissions from the browser
+  - [ ] "Processing" to display during OCR
     - Opportunity to test or correct for accuracy?
 
 ## Other features/thoughts
@@ -28,3 +28,15 @@ Business card to digital contact with a picture.
 - What format to save contacts?
   - Is it device dependant?
   - research iphone versus android contact format
+
+## Development
+
+Install the python dependencies with `pip install -r requirements.txt`
+
+To start the backend of the application, navigate to the `backend` folder and run `python manage.py runserver`. You might need to `python manage.py makemigrations` and `python manage.py migrate` to build the database initially.
+
+To test the image upload API, navigate to `:8000/api/upload/`
+
+Install node dependencies with `npm i`
+
+To start the frontend of the application, navigate to the `frontend` folder and run `npm start` to initiate the development server.
