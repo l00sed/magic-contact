@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-p$$)-6(5vja-+31@kn&9+-s3m@=7rvjn9705t6zpuwo3*9p!04
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.0.104',
+]
 
 
 # Application definition
@@ -38,19 +40,41 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'contact',
+    'corsheaders',
     'rest_framework',
     'drf_yasg',
+    'contact',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://0.0.0.0:3000',
+    'http://0.0.0.0:3001',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://0.0.0.0:3000',
+    'http://0.0.0.0:3001',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://192.168.0.104:3000',
+    'http://192.168.0.104:3001',
 ]
 
 ROOT_URLCONF = 'backend.urls'

@@ -34,17 +34,26 @@ function App() {
     if (target.files) {
       if (target.files.length !== 0) {
         const file = target.files[0];
-        const newUrl = URL.createObjectURL(file);
-        setSource(newUrl);
+        const tempURL = URL.createObjectURL(file);
+        setSource(tempURL);
         formData.append('name', 'File');
-        formData.append('image', source);
+        formData.append('image', file);
+        /*
+        // Display the key/value pairs
+        for (var pair of formData.entries()) {
+          console.log(pair[0]+ ', ' + pair[1]);
+        }
+        */
+        // Upload the image
         axios({
-          method: 'post',
-          url: '/api/upload/',
+          method: 'POST',
+          url: 'http://192.168.0.104:8000/api/upload/',
           data: formData,
           headers: {
             'content-type': 'multipart/form-data'
           },
+        }).then((res) => {
+          console.log(res);
         });
       }
     }
