@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="UploadImageTest",
+            name="UploadedImage",
             fields=[
                 (
                     "id",

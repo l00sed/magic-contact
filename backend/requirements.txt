@@ -1,3 +1,6 @@
 djangorestframework
 django-cors-headers
 drf-yasg
+pytesseract
+django-phonenumber-field[phonenumbers]
+pillow

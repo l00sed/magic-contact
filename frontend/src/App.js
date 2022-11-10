@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imgBox: {
     maxWidth: "80%",
-    maxHeight: "80%",
-    margin: "10px"
+    margin: "auto",
   },
   img: {
     height: "inherit",
@@ -30,7 +29,28 @@ function App() {
   const classes = useStyles();
   const [source, setSource] = useState("");
   const formData = new FormData();
-  const handleCapture = (target) => {
+  const [imageText, setImageText] = useState("");
+  const handleConversion = async (filename) => {
+    // If successfully uploaded, get the image's text content
+    try {
+      axios({
+        method: 'POST',
+        url: 'http://192.168.0.104:8000/api/get_image_text/',
+        data: { 'filename': filename },
+        headers: {
+          'content-type': 'application/json'
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          console.log(res.data.image_text);
+          setImageText(res.data.image_text);
+        }
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+  const handleCapture = async (target) => {
     if (target.files) {
       if (target.files.length !== 0) {
         const file = target.files[0];
@@ -38,23 +58,21 @@ function App() {
         setSource(tempURL);
         formData.append('name', 'File');
         formData.append('image', file);
-        /*
-        // Display the key/value pairs
-        for (var pair of formData.entries()) {
-          console.log(pair[0]+ ', ' + pair[1]);
-        }
-        */
         // Upload the image
-        axios({
-          method: 'POST',
-          url: 'http://192.168.0.104:8000/api/upload/',
-          data: formData,
-          headers: {
-            'content-type': 'multipart/form-data'
-          },
-        }).then((res) => {
-          console.log(res);
-        });
+        try {
+          axios({
+            method: 'POST',
+            url: 'http://192.168.0.104:8000/api/upload/',
+            data: formData,
+            headers: {
+              'content-type': 'multipart/form-data'
+            },
+          }).then((res) => {
+            handleConversion(res.data.filename);
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
       }
     }
   };
@@ -66,9 +84,9 @@ function App() {
           <h5>Capture your image</h5>
           {
           source &&
-          <Box display="flex" justifyContent="center" border={1} className={classes.imgBox}>
-            <img src={source} alt={"snap"} className={classes.img}></img>
-          </Box>
+            <Box display="flex" justifyContent="center" border={1} className={classes.imgBox}>
+              <img src={source} alt={"snap"} className={classes.img}></img>
+            </Box>
           }
           <input
             accept="image/*"
@@ -87,6 +105,7 @@ function App() {
               <PhotoCameraRoundedIcon fontSize="large" color="primary" />
             </IconButton>
           </label>
+          <p>{imageText}</p>
         </Grid>
       </Grid>
     </div>
@@ -94,4 +113,3 @@ function App() {
 }
 
 export default App;
-

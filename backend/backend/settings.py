@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'contact',
+    'phonenumber_field', # https://django-phonenumber-field.readthedocs.io/en/latest/
 ]
 
 MIDDLEWARE = [
